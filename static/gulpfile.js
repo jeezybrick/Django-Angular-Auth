@@ -4,7 +4,8 @@ var gulp = require('gulp'),
     minifyCss = require('gulp-minify-css'),
     plumber = require('gulp-plumber'), // for error handling
     autoprefixer = require('gulp-autoprefixer'),
-    sass = require('gulp-sass');
+    sass = require('gulp-sass'),
+    livereload = require('gulp-livereload');
 
 // default
 gulp.task('default', function() {
@@ -21,9 +22,20 @@ gulp.task('autoprefix', function(){
         .pipe(gulp.dest('css'));
 });
 
+
+// watch changes of files
+gulp.task('html', function() {
+    return gulp.src('partials/*.html')
+        .pipe(gulp.dest(''))
+        .pipe(livereload());
+});
+
+
 // watch changes of files
 gulp.task('watch', function() {
+    livereload.listen();
     gulp.watch('css/*.css', ['minify-css', 'sass']);
+    gulp.watch('partials/*.html', ['html']);
 });
 
 // compress images
@@ -45,7 +57,8 @@ gulp.task('minify-css', function() {
   return gulp.src('css/*.css')
     .pipe(plumber())
     .pipe(minifyCss({compatibility: 'ie8'}))
-    .pipe(gulp.dest('css/minified'));
+    .pipe(gulp.dest('css/minified'))
+    .pipe(livereload());
 });
 
 
