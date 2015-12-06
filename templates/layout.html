@@ -1,0 +1,116 @@
+{% load staticfiles %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="" ng-app="myApp">
+<head>
+    <!-- Angular HTML5 mode -->
+    <base href="/" />
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>{% block title %}{% endblock %} &ndash; Pool</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <!-- Angular motion for animations -->
+    <link rel="stylesheet" href="//rawgithub.com/mgcrea/angular-motion/master/dist/angular-motion.min.css">
+
+    <!-- Angular material -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/0.11.4/angular-material.min.css">
+
+    <!-- Custom css -->
+    <link rel="stylesheet" href="{% static 'css/minified/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/minified/media.css' %}">
+
+    <!-- animate css -->
+    <link rel="stylesheet" href="{% static 'css/minified/animate.css' %}">
+
+    <!-- angular flash for flash messages -->
+    <link rel="stylesheet" href="{% static 'css/minified/angular-flash.css' %}">
+
+    <!--[if IE]>
+        <script src="https://cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+{% comment %}<!-- preloader for page loading -->
+<div class="row" ng-controller="PageController">
+    <div class="page-preloader col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center center-block" ng-hide="pageLoad">
+        <div layout="row" layout-align="space-around">
+            <md-progress-circular class="md-accent md-hue-1" md-mode="indeterminate"
+                                  md-diameter="96"></md-progress-circular>
+        </div>
+    </div>
+</div>{% endcomment %}
+
+
+<div>
+
+    <div ui-view></div>
+
+</div>
+
+
+<!-- Jquery and bootstrap -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- Angular -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.6/angular-resource.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.10/angular-route.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-animate.js"></script>
+<script src="{% static 'js/angular-flash.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.3.3/angular-strap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.3.3/angular-strap.tpl.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.6/angular-aria.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular-sanitize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.6/angular-cookies.min.js"></script>
+
+<!-- Angular Material Javascript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/0.11.4/angular-material.min.js"></script>
+
+<!-- angular-loading-bar  -->
+<script src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.7.1/loading-bar.min.js'></script>
+
+<!-- angular-filter -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.7/angular-filter.min.js'></script>
+
+<!-- angular-messages -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.6/angular-messages.min.js'></script>
+
+<!-- Moment.js -->
+<script src="{% static 'js/moment.js' %}"></script>
+
+<!-- Custom js -->
+<script src="{% static 'js/app.js' %}"></script>
+
+<script src="{% static 'js/services/djangoAuth.js' %}"></script>
+<script src="{% static 'js/services/validate.js' %}"></script>
+
+<script src="{% static 'js/services.js' %}"></script>
+<script src="{% static 'js/controllers.js' %}"></script>
+<script src="{% static 'js/common.js' %}"></script>
+
+<!-- ui bootstrap -->
+<script src="{% static 'js/ui-bootstrap.min.js' %}"></script>
+
+<!-- angular-calendar -->
+<script src="{% static 'js/calendar.js' %}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.js"></script>
+
+
+</body>
+</html>
