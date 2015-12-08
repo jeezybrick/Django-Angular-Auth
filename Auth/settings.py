@@ -148,3 +148,7 @@ STATICFILES_DIRS = ('static', )
 
 # bootstrap3 for crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+
+# Email backend for 'Connection refused' error on success registration
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

@@ -192,7 +192,7 @@ function RegistrationController($scope, $http, $location, $window, Flash, django
         email: undefined
     };
 
-/*
+
     $scope.sendRegisterData = function () {
 
         $http.post($scope.page, $scope.user).success(function () {
@@ -207,8 +207,8 @@ function RegistrationController($scope, $http, $location, $window, Flash, django
         });
     };
 
+/*
 
-*/
     $scope.sendRegisterData = function () {
         djangoAuth.register($scope.user)
             .then(function(data){
@@ -220,7 +220,7 @@ function RegistrationController($scope, $http, $location, $window, Flash, django
                 Flash.create('danger', $scope.errors, 'flash-message');
             });
     };
-
+*/
 }
 
 
@@ -228,10 +228,11 @@ angular
     .module('myApp')
     .controller('LogoutController', LogoutController);
 
-function LogoutController(djangoAuth, $location) {
+function LogoutController(djangoAuth, $location, $window) {
 
     djangoAuth.logout();
-    $location.path('/');
+    //$location.path('/');
+    $window.location.href = '/';
 }
 
 
