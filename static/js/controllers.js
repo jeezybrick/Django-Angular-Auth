@@ -192,37 +192,21 @@ function RegistrationController($scope, $http, $location, $window, Flash, django
         email: undefined
     };
 
-
     $scope.sendRegisterData = function () {
-
-        $http.post($scope.page, $scope.user).success(function () {
-
-            //$location.path('/');
-            //$window.location.href = '/';
-
-        }).error(function (error) {
-
-            $scope.sendRegisterDataError = error;
-            Flash.create('danger', $scope.errorRegisterMessage, 'flash-message');
-        });
-    };
-
-/*
-
-    $scope.sendRegisterData = function () {
-        djangoAuth.register($scope.user)
+        $scope.successPath = '/login';
+        djangoAuth.register($scope.user.username, $scope.user.password1, $scope.user.password2,$scope.user.email)
             .then(function(data){
                 // success case
                 $scope.complete = true;
+                $location.path($scope.successPath);
             },function(data){
                 // error case
                 $scope.errors = data;
                 Flash.create('danger', $scope.errors, 'flash-message');
             });
     };
-*/
-}
 
+}
 
 angular
     .module('myApp')
