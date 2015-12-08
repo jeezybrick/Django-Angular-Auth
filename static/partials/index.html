@@ -1,17 +1,6 @@
 <div class="index-wrapper" ng-if="vm.authenticated">
-    <div ng-include="'/static/partials/nav.html'"></div>
-
-
-    <h1>[[ vm.test ]]</h1>
-
-    <h2>[[ ff ]]</h2>
-   pppppppppp
-    <md-button class="sign-btn md-raised md-primary"
-               ng-click="vm.sendMessage()">
-        Test
-    </md-button>
-
-    <a ui-sref="index.main">Go to nested!</a>
+    <div class="hidden-xs" ng-include="'/static/partials/nav_my.html'" style="margin-bottom: 30px;"></div>
+    <div class="visible-xs" ng-include="'/static/partials/nav_mat_two.html'" style="margin-bottom: 30px;"></div>
 
     <div ui-view></div>
 

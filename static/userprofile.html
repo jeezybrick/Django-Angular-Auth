@@ -1,0 +1,45 @@
+<div id="userProfile_view">
+    <div ng-if="vm.complete == false">
+        <form role="form" ng-if="vm.authenticated" name="userProfileForm" ng-submit="updateProfile(userProfileForm, model)" novalidate>
+
+
+            <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 text-center">
+                <div layout="column">
+                    <md-input-container flex>
+                        <label>Username</label>
+                        <input required name="full_name" ng-model="vm.model.username" type="text">
+                    </md-input-container>
+
+                    <md-input-container flex>
+                        <label>Email address</label>
+                        <input name="email" ng-model="vm.model.email" type="text">
+                    </md-input-container>
+
+
+                    <md-input-container flex>
+                        <label>Last name</label>
+                        <input name="password1" ng-model="vm.model.last_name" type="text">
+                    </md-input-container>
+
+                    <md-input-container flex>
+                        <label>First name</label>
+                        <input name="password2" ng-model="vm.model.first_name" type="text">
+                    </md-input-container>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                <md-button ng-disabled="userProfileForm.$invalid" class="md-raised md-primary" ng-click="updateProfile()">Update profile</md-button>
+            </div>
+        </div>
+
+        </form>
+        <div class="alert alert-warning" ng-if="vm.authenticated == false">You need to be logged in to do this.</div>
+    </div>
+    <div ng-if="vm.complete == true">
+        <div class="alert alert-success">You have updated your profile.</div>
+    </div>
+</div>

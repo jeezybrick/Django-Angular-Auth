@@ -10,10 +10,14 @@ function HomeController($scope, $log, $location, djangoAuth) {
 
     $scope.ff = 'qqqqqqqqqqq';
     var vm = this;
-    vm.name = {};
-    vm.test = 'ddddddddddddddddddddd';
-    vm.sendMessage = sendMessage;
     vm.authenticated = false;
+    vm.sendMessage = sendMessage;
+    vm.demo = {
+        isOpen: false,
+        count: 0,
+        selectedDirection: 'right'
+    };
+
 
 
     // Wait for the status of authentication, set scope var to true if it resolves
@@ -32,7 +36,45 @@ function HomeController($scope, $log, $location, djangoAuth) {
 
     }
 
+}
 
+angular
+    .module('myApp')
+    .controller('UserProfileController', UserProfileController);
+
+function UserProfileController($scope, djangoAuth, Validate) {
+
+    var vm = this;
+    vm.authenticated = false;
+    vm.complete = false;
+    vm.model = {'first_name':'','last_name':'','email':''};
+
+
+    // Wait for the status of authentication, set scope var to true if it resolves
+    djangoAuth.authenticationStatus(true).then(function () {
+        vm.authenticated = true;
+    }, function () {
+        vm.authenticated = false;
+    });
+
+  	djangoAuth.profile().then(function(data){
+  		vm.model = data;
+  	});
+
+    $scope.updateProfile = function(formData, model){
+      $scope.errors = [];
+      Validate.form_validation(formData,$scope.errors);
+      if(!formData.$invalid){
+        djangoAuth.updateProfile(model)
+        .then(function(data){
+        	// success case
+        	$scope.complete = true;
+        },function(data){
+        	// error case
+        	$scope.error = data;
+        });
+      }
+    }
 }
 
 
@@ -85,71 +127,13 @@ function LoginCtrl($scope, $http, $location, $timeout, Flash, AuthUser) {
 
 }
 
-
-angular
-    .module('myApp')
-    .controller('BookingsController', BookingsController);
-
-function BookingsController($scope, $location, Flash, MyBookings, AuthUser) {
-
-    var date = new Date();
-    $scope.isUserAuth = false;
-    $scope.currentDate = moment(date).format('MMMM ' + 'YYYY');
-    $scope.ordersLoad = false;
-    $scope.deleteOrderModalQuestion = "Do you wan't to delete this order?";
-    $scope.dateNow = moment(date).format('MMMM YYYY');
-
-    $scope.user = AuthUser.query(function (response) {
-
-        if (angular.equals(response.is_auth, false)) {
-            $location.path('/login/');
-        } else {
-            $scope.isUserAuth = true;
-        }
-
-        $scope.bookings = MyBookings.query(function () {
-
-            $scope.ordersLoad = true;
-
-        }, function () {
-            $scope.bookingsLoadError = true;
-        });
-
-
-    }, function () {
-
-        $location.path('/');
-
-    });
-
-    //remove order form user's list
-    $scope.removeOrder = function (index) {
-
-
-        MyBookings.delete({id: $scope.bookings[index].id}, function () {
-
-            $scope.bookings.splice(index, 1);
-
-        }, function (error) {
-
-            $scope.defaultError = error.data;
-            $scope.detailError = error.data.detail;
-            Flash.create('danger', $scope.detailError || $scope.defaultError, 'flash-message');
-        });
-
-
-    };
-
-
-}
-
 angular
     .module('myApp')
     .controller('AuthController', AuthController);
 
 function AuthController($scope, $location, Flash, djangoAuth) {
 
-    $scope.title = 'signup';
+    $scope.title = 'login';
     $scope.loginProcess = false;
     $scope.errorLoginMessage = 'Incorrect username or password.';
 
@@ -163,7 +147,7 @@ function AuthController($scope, $location, Flash, djangoAuth) {
         djangoAuth.login($scope.user.username, $scope.user.password)
             .then(function(data){
                 $scope.loginProcess = false;
-                $location.path('/');
+                $location.path('/main');
 
             },function(error){
                 // error case
@@ -184,6 +168,8 @@ function RegistrationController($scope, $http, $location, $window, Flash, django
 
     $scope.page = '/rest-auth/registration/';
     $scope.errorRegisterMessage = 'Incorrect username or password.';
+    $scope.complete = false;
+    $scope.title = 'sign up';
 
     $scope.user = {
         username : undefined,
@@ -206,6 +192,38 @@ function RegistrationController($scope, $http, $location, $window, Flash, django
             });
     };
 
+}
+
+angular
+    .module('myApp')
+    .controller('PasswordChangeController', PasswordChangeController);
+
+function PasswordChangeController($scope, djangoAuth, Validate) {
+
+    // Wait for the status of authentication, set scope var to true if it resolves
+    djangoAuth.authenticationStatus(true).then(function () {
+        $scope.authenticated = true;
+    }, function () {
+        $scope.authenticated = false;
+
+    });
+
+    $scope.model = {'new_password1':'','new_password2':''};
+  	$scope.complete = false;
+    $scope.changePassword = function(formData){
+      $scope.errors = [];
+      Validate.form_validation(formData,$scope.errors);
+      if(!formData.$invalid){
+        djangoAuth.changePassword($scope.model.new_password1, $scope.model.new_password2)
+        .then(function(data){
+        	// success case
+        	$scope.complete = true;
+        },function(data){
+        	// error case
+        	$scope.errors = data;
+        });
+      }
+    }
 }
 
 angular

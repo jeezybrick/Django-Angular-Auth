@@ -54,6 +54,7 @@ angular
                 templateUrl: '/static/partials/my_auth/register.html',
                 controller: 'RegistrationController'
             })
+
             .state('logout', {
                 url: '/logout',
                 controller: 'LogoutController'
@@ -64,10 +65,10 @@ angular
                 controller: 'HomeController',
                 controllerAs: 'vm',
                 /*resolve: {
-                  authenticated: ['djangoAuth', function(djangoAuth){
-                    return djangoAuth.authenticationStatus(true);
-                  }]
-                }*/
+                 authenticated: ['djangoAuth', function(djangoAuth){
+                 return djangoAuth.authenticationStatus(true);
+                 }]
+                 }*/
             })
             .state('index.main', {
                 url: '^/main',
@@ -75,13 +76,29 @@ angular
                 controller: 'HomeController',
                 controllerAs: 'vm'
             })
+            .state('index.profile', {
+                url: '^/profile',
+                templateUrl: '/static/partials/userprofile.html',
+                controller: 'UserProfileController',
+                controllerAs: 'vm'
+            })
+            .state('index.auth-change-password', {
+                url: '^/change_password',
+                templateUrl: '/static/partials/my_auth/password_change.html',
+                controller: 'PasswordChangeController',
+                resolve: {
+                    authenticated: ['djangoAuth', function (djangoAuth) {
+                        return djangoAuth.authenticationStatus();
+                    }]
+                }
+            })
             .state('my-bookings', {
                 url: '/my_bookings/',
                 templateUrl: '/static/partials/my-bookings.html',
                 controller: 'BookingsController'
             })
             .state('otherwise', {
-                url : '*path',
+                url: '*path',
                 templateUrl: '/static/partials/index.html',
                 controller: 'HomeController'
             })

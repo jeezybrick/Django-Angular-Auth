@@ -1,0 +1,24 @@
+<md-fab-toolbar md-open="vm.demo.isOpen" count="vm.demo.count"
+                md-direction="[[ vm.demo.selectedDirection ]]">
+    <md-fab-trigger class="align-with-text">
+        <md-button aria-label="menu" class="md-fab md-primary">
+            <md-icon md-svg-src="/static/images/icons/menu.svg"></md-icon>
+        </md-button>
+    </md-fab-trigger>
+    <md-toolbar>
+        <md-fab-actions class="md-toolbar-tools">
+            <md-button ui-sref="index.main" aria-label="comment" class="md-icon-button">
+                <md-icon  md-svg-src="/static/images/icons/home.svg"></md-icon>
+            </md-button>
+            <md-button ui-sref="index.profile" aria-label="label" class="md-icon-button">
+                <md-icon md-svg-src="/static/images/icons/profile.svg"></md-icon>
+            </md-button>
+
+            <span flex></span>
+            <md-button aria-label="photo" class="md-icon-button">
+                <md-icon md-svg-src="/static/images/icons/logout.svg"></md-icon>
+            </md-button>
+        </md-fab-actions>
+
+    </md-toolbar>
+</md-fab-toolbar>
