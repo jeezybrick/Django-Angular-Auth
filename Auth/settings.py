@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     'init',
     'api',
+    'my_auth',
 
     'rest_framework',
     'rest_framework.authtoken',
@@ -152,3 +153,11 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 # Email backend for 'Connection refused' error on success registration
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'api.serializers.UserDetailSerializer',
+}
+
+MEDIA_ROOT = 'media'
+
+AUTH_USER_MODEL = 'my_auth.MyUser'

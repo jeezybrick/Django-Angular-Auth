@@ -47,6 +47,14 @@ function UserProfileController($scope, djangoAuth, Validate, $log, $mdToast) {
     vm.complete = false;
     vm.model = {'username': '', 'first_name': '', 'last_name': '', 'email': ''};
 
+     // Wait for the status of authentication, set scope var to true if it resolves
+    djangoAuth.authenticationStatus(true).then(function () {
+        vm.authenticated = true;
+    }, function () {
+        vm.authenticated = false;
+    });
+
+
     var last = {
         bottom: true,
         top: false,
@@ -71,13 +79,6 @@ function UserProfileController($scope, djangoAuth, Validate, $log, $mdToast) {
         last = angular.extend({}, current);
     }
 
-
-    // Wait for the status of authentication, set scope var to true if it resolves
-    djangoAuth.authenticationStatus(true).then(function () {
-        vm.authenticated = true;
-    }, function () {
-        vm.authenticated = false;
-    });
 
     djangoAuth.profile().then(function (data) {
         vm.model = data;
@@ -234,16 +235,18 @@ angular
 
 function PasswordChangeController($scope, djangoAuth, Validate, $log) {
 
-    // Wait for the status of authentication, set scope var to true if it resolves
-    djangoAuth.authenticationStatus(true).then(function () {
-        $scope.authenticated = true;
-    }, function () {
-        $scope.authenticated = false;
+    var vm = this;
+    vm.authenticated = false;
+    vm.complete = false;
+    vm.model = {'new_password1': '', 'new_password2': ''};
 
+     // Wait for the status of authentication, set scope var to true if it resolves
+    djangoAuth.authenticationStatus(true).then(function () {
+        vm.authenticated = true;
+    }, function () {
+        vm.authenticated = false;
     });
 
-    $scope.model = {'new_password1': '', 'new_password2': ''};
-    $scope.complete = false;
     $scope.changePassword = function (formData) {
         $log.info(formData);
         $scope.errors = [];

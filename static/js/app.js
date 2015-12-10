@@ -86,6 +86,7 @@ angular
                 url: '^/change_password',
                 templateUrl: '/static/partials/my_auth/password_change.html',
                 controller: 'PasswordChangeController',
+                controllerAs: 'vm',
                 resolve: {
                     authenticated: ['djangoAuth', function (djangoAuth) {
                         return djangoAuth.authenticationStatus();
